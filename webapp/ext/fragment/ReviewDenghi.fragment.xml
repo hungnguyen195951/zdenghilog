@@ -1,0 +1,215 @@
+<core:FragmentDefinition
+    xmlns:m="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form">
+    <m:Dialog
+        id="idSimulateDialogDeNghi"
+        title="{ReviewData>/title}"
+        stretch="true"
+        horizontalScrolling="false"
+        verticalScrolling="false">
+        <m:content>
+                <ObjectPageLayout id="idReviewDeNghi">
+                    <sections>
+                        <ObjectPageSection
+                            id="idObjectPageSection"
+                            titleUppercase="false">
+                            <subSections>
+                                <ObjectPageSubSection titleUppercase="false">
+                                    <blocks>
+                                        <m:VBox >
+                                            <m:FormattedText htmlText="{ReviewData>/companyCodeNameUI}" />
+                                            <m:FormattedText htmlText="{ReviewData>/companyCodeAdressUI}" class="sapUiTinyMarginTop" />
+                                            <m:FormattedText htmlText="{ReviewData>/companyCodePhoneUI}" class="sapUiTinyMarginTop" />
+                                            <m:FormattedText htmlText="{ReviewData>/companyCodeFaxUI}" class="sapUiTinyMarginTop" />
+                                            <m:FormattedText htmlText="{ReviewData>/companyCodeEmailUI}" class="sapUiTinyMarginTop" />
+                                            <m:FormattedText htmlText="{ReviewData>/companyCodeWebUI}" class="sapUiTinyMarginTop" />                                                                                                          
+                                        </m:VBox>                             
+                                    </blocks>
+                                </ObjectPageSubSection>     
+                                <ObjectPageSubSection >
+                                    <m:VBox>
+                                        <f:Form id="formNguoiNhan"
+                                            editable="true">
+                                            <f:layout>
+                                                <f:ResponsiveGridLayout
+                                                    labelSpanXL="3"
+                                                    labelSpanL="3"
+                                                    labelSpanM="3"
+                                                    labelSpanS="12"
+                                                    adjustLabelSpan="false"
+                                                    emptySpanXL="4"
+                                                    emptySpanL="4"
+                                                    emptySpanM="4"
+                                                    emptySpanS="0"
+                                                    columnsXL="1"
+                                                    columnsL="1"
+                                                    columnsM="1"
+                                                    singleContainerFullSize="false" />
+                                            </f:layout>
+                                            <f:formContainers>
+                                                <f:FormContainer>
+                                                    <f:formElements>
+                                                        <f:FormElement label="Tên người đề nghị">
+                                                            <f:fields>
+                                                                <m:Input value='{ReviewData>/nguoidenghi}' id="inpTenNguoiDeNghi" maxLength="60" />
+                                                            </f:fields>
+                                                        </f:FormElement>
+                                                        <f:FormElement label="Đơn vị công tác">
+                                                            <f:fields>
+                                                                <m:Input value='{ReviewData>/donvicongtac}' id="inpDonViCongTac" maxLength="80" />
+                                                            </f:fields>
+                                                        </f:FormElement>
+                                                        <f:FormElement label="Lý do thanh toán">
+                                                            <f:fields>
+                                                                <m:Input value='{ReviewData>/lydothanhtoan}' id="inpLyDoThanhToan" maxLength="300" />
+                                                            </f:fields>
+                                                        </f:FormElement>                                                                                                                                                                                                                                                                    
+                                                    </f:formElements>
+                                                </f:FormContainer>
+                                            </f:formContainers>
+                                        </f:Form>
+                                    </m:VBox>                            
+                                </ObjectPageSubSection>                   
+                                <ObjectPageSubSection
+                                    id="idItemSection"
+                                    titleUppercase="false">
+                                    <blocks>
+                                        <table:Table
+                                            showNoData="true"
+                                            rows="{ReviewData>/items}"
+                                            selectionMode="MultiToggle"
+                                            paste="onPaste"
+                                            ariaLabelledBy="title">
+                                            <table:columns>
+                                                <table:Column width="2rem" ><m:Label text="STT" /><table:template> <m:Text text="{ReviewData>stt}"/></table:template></table:Column>                                         
+                                                <table:Column width="8rem" ><m:Label text="Document number" /><table:template> <m:Text text="{ReviewData>accountingdocument}"/></table:template></table:Column> 
+                                                <table:Column width="7rem" ><m:Label text="Số hoá đơn" /><table:template> <m:Text text="{ReviewData>sohoadon}"/></table:template></table:Column>                                         
+                                                <table:Column width="7rem"><m:Label text="Ngày hoá đơn" /><table:template> <m:Text text="{ReviewData>ngayhoadon}"/></table:template></table:Column>                                         
+                                                <table:Column width="10rem"><m:Label text="Diễn giải" /><table:template> <m:Text text="{ReviewData>diengiai}"/></table:template></table:Column>                                         
+                                                <table:Column width="10rem" >
+                                                    <m:Label text="Trị giá" />
+                                                    <table:template>
+                                                        <m:Input    textAlign="End" 
+                                                                    id="inpTriGia"
+                                                                    change="onChangeTongCong"
+                                                                    value="{   parts: ['ReviewData>sotientruocthue', 'ReviewData>transactioncurrency'], 
+                                                                    type: 'sap.ui.model.type.Currency', 
+                                                                    formatOptions: {showMeasure: false} }" />
+                                                    </table:template>
+                                                </table:Column>                                         
+                                                <table:Column width="10rem">
+                                                    <m:Label text="VAT" />
+                                                        <table:template>
+                                                            <m:Input  
+                                                                        change="onChangeTongCong"
+                                                                        textAlign="End"  value="{   parts: ['ReviewData>vat', 'ReviewData>transactioncurrency'], 
+                                                                            type: 'sap.ui.model.type.Currency', 
+                                                                            formatOptions: {showMeasure: false} }" />
+                                                        </table:template>
+                                                    </table:Column>                                         
+                                                <table:Column width="10rem">
+                                                    <m:Label text="Tổng cộng" />
+                                                    <table:template > 
+                                                        <m:Text  textAlign="End"  text="{ReviewData>sotiendenghiUi}"/>
+                                                    </table:template>
+                                                </table:Column>                                                                                                
+                                            </table:columns>
+                                        </table:Table>
+                                    </blocks>
+                                </ObjectPageSubSection>
+                                <ObjectPageSubSection >
+                                    <m:VBox>
+                                        <m:HBox>
+                                            <m:Label text="Tổng cộng: " design="Bold"/>
+                                            <m:Text  text="{ReviewData>/sumTongCong}"></m:Text>                                            
+                                        </m:HBox>
+                                        <f:Form id="formThongTinTK"
+                                            editable="true">
+                                            <f:layout>
+                                                <f:ResponsiveGridLayout
+                                                    labelSpanXL="3"
+                                                    labelSpanL="3"
+                                                    labelSpanM="3"
+                                                    labelSpanS="12"
+                                                    adjustLabelSpan="false"
+                                                    emptySpanXL="4"
+                                                    emptySpanL="4"
+                                                    emptySpanM="4"
+                                                    emptySpanS="0"
+                                                    columnsXL="1"
+                                                    columnsL="1"
+                                                    columnsM="1"
+                                                    singleContainerFullSize="false" />
+                                            </f:layout>
+                                            <f:formContainers>
+                                                <f:FormContainer>
+                                                    <f:formElements>
+                                                        <f:FormElement label="Partner Bank Type" visible="false">
+                                                            <f:fields>
+                                                                <m:ComboBox value="{ReviewData>/partnerBankType}" 
+                                                                            items="{ path: 'ReviewData>/banks' }"
+                                                                            id="idPartnerBankType" 
+                                                                            visible="false"
+                                                                            change="onChangePartnerBankType">
+                                                                    <core:ListItem key="{ReviewData>BankIdentification}" text="{ReviewData>BankIdentification}"/>
+                                                                </m:ComboBox>
+                                                            </f:fields>
+                                                        </f:FormElement>    
+                                                       <f:FormElement label="Tên người nhận">
+                                                            <f:fields>
+                                                                <m:Input value="{ReviewData>/nguoinhan}" id="inpTenNguoiNhan" maxLength="60" />
+                                                            </f:fields>
+                                                        </f:FormElement>                                                      
+                                                        <f:FormElement label="Tên ngân hàng người nhận">
+                                                            <f:fields>
+                                                                <m:Input value="{ReviewData>/tennganhang}" id="inpTenNganHang"  maxLength="80"/>
+                                                            </f:fields>
+                                                        </f:FormElement>  
+                                                        <f:FormElement label="Số tài khoản nhận">
+                                                            <f:fields>
+                                                                <m:Input value="{ReviewData>/sotaikhoannhan}" id="inpSoTaiKhoan" />
+                                                            </f:fields>
+                                                        </f:FormElement>
+                                                        <f:FormElement label="Hình thức thanh toán">
+                                                            <f:fields>
+                                                                <m:ComboBox  change="onChangePaymentMeth" value="{ReviewData>/paymentmethod}" id="cbPaymentMethod" required="true">
+                                                                    <core:Item key="TM" text="Tiền mặt" />
+                                                                    <core:Item key="CK" text="Chuyển khoản" />
+                                                                    <core:Item key="KHAC" text="Phương thức khác" />
+                                                                </m:ComboBox>
+                                                            </f:fields>
+                                                        </f:FormElement>       
+                                                        <f:FormElement label="Chứng từ kèm theo">
+                                                            <f:fields>
+                                                                <m:Input value="{ReviewData>/ctkemtheo}" id="inpAttach" />
+                                                            </f:fields>
+                                                        </f:FormElement>                                                                                                                                                                                                                                                               
+                                                    </f:formElements>
+                                                </f:FormContainer>
+                                            </f:formContainers>
+                                        </f:Form>
+                                    </m:VBox>                                 
+                                </ObjectPageSubSection>
+                            </subSections>
+                        </ObjectPageSection>
+                    </sections>
+                </ObjectPageLayout>            
+        </m:content>
+        <m:beginButton>
+            <m:Button
+                id="btnPost"
+                press="onPrintDeNghiMoi"
+                text="Post"
+                type="Emphasized"/>
+        </m:beginButton>
+        <m:endButton>
+            <m:Button
+                id="btnClose"
+                press="onCloseReviewDialog"
+                text="Close"/>            
+        </m:endButton>
+    </m:Dialog>
+</core:FragmentDefinition>
