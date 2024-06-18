@@ -165,11 +165,7 @@ sap.ui.define([
                             } else if (data.ctdenghi == 'B') {
                                 template = 'TAMUNG/TAMUNG'
                                 report = 'TAMUNG'
-                            } else if (data.ctdenghi == 'C') {
-                                template = 'THANHTOANHOANUNG/THANHTOANHOANUNG'
-                                report = 'TTHOANUNG'
-
-                            }
+                            } 
                             var requestPDF = JSON.stringify({
                                 "id": `${data.zdenghi}${data.gjahr}`,
                                 "report": report,
